@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.projeto.curso.entities.Category;
 import com.projeto.curso.entities.Order;
+import com.projeto.curso.entities.OrderItem;
 import com.projeto.curso.entities.Product;
 import com.projeto.curso.entities.User;
 import com.projeto.curso.entities.enums.OrderStatus;
 import com.projeto.curso.repositories.CategoryRepository;
+import com.projeto.curso.repositories.OrderItemRepository;
 import com.projeto.curso.repositories.OrderRepository;
 import com.projeto.curso.repositories.ProductRepository;
 import com.projeto.curso.repositories.UserRepository;
@@ -32,6 +34,9 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -63,6 +68,13 @@ public class TestConfig implements CommandLineRunner {
 
         userRepository.saveAll(Arrays.asList(user1, user2));
         orderRepository.saveAll(Arrays.asList(order1, order2, order3));
+    
+        OrderItem oi1 = new OrderItem(order1, product1, 2, product1.getPrice());
+        OrderItem oi2 = new OrderItem(order1, product3, 1, product3.getPrice());
+        OrderItem oi3 = new OrderItem(order2, product3, 2, product3.getPrice());
+        OrderItem oi4 = new OrderItem(order3, product2, 2, product2.getPrice());
+
+        orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
     }
 
     // ** Sem a anotação, a injeção deveria ser feita manualmente, 
