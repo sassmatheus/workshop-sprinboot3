@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.projeto.curso.entities.Category;
 import com.projeto.curso.entities.Order;
 import com.projeto.curso.entities.OrderItem;
+import com.projeto.curso.entities.Payment;
 import com.projeto.curso.entities.Product;
 import com.projeto.curso.entities.User;
 import com.projeto.curso.entities.enums.OrderStatus;
@@ -75,6 +76,11 @@ public class TestConfig implements CommandLineRunner {
         OrderItem oi4 = new OrderItem(order3, product2, 2, product2.getPrice());
 
         orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+        
+        Payment pay1 = new Payment(null, Instant.parse("2024-10-22T14:13:13Z"), order1);
+        order1.setPayment(pay1);
+
+        orderRepository.save(order1);
     }
 
     // ** Sem a anotação, a injeção deveria ser feita manualmente, 
